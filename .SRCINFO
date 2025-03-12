@@ -79,3 +79,25 @@ pkgname = nvidia-merged-dkms
 	conflicts = nvidia-dkms
 	conflicts = NVIDIA-MODULE
 	conflicts = nvidia
+
+pkgname = lib32-nvidia-merged-utils
+	pkgdesc = NVIDIA drivers utilities (32-bit)
+	depends = lib32-zlib
+	depends = lib32-gcc-libs
+	depends = lib32-libglvnd
+	depends = nvidia-utils=570.124.04
+	optdepends = lib32-opencl-nvidia
+	provides = lib32-vulkan-driver
+	provides = lib32-opengl-driver
+	provides = lib32-nvidia-libgl
+	conflicts = lib32-nvidia-libgl
+	conflicts = lib32-nvidia-utils
+	replaces = lib32-nvidia-libgl
+
+pkgname = lib32-opencl-nvidia-merged
+	pkgdesc = OpenCL implemention for NVIDIA (32-bit)
+	depends = lib32-zlib
+	depends = lib32-gcc-libs
+	optdepends = opencl-headers: headers necessary for OpenCL development
+	conflicts = lib32-opencl-nvidia
+	provides = lib32-opencl-driver
