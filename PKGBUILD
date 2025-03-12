@@ -33,7 +33,7 @@ source=('nvidia-drm-outputclass.conf'
         'kernel-6.13-vfio.patch'
         'nvidia-470xx-fix-linux-6.13.patch'
         'nvidia-grid.conf'
-        "https://foxi.buduanwang.vip/pan/vGPU/${_gridversion}/${_driverpack}.zip"
+        "NVIDIA-GRID-Linux-KVM-550.90.05-550.90.07-552.74.zip"
         "git+https://github.com/VGPU-Community-Drivers/vGPU-Unlock-patcher.git#branch=${pkgver%.*}"
         'git+https://github.com/DualCoder/vgpu_unlock.git')
 sha512sums=('de7116c09f282a27920a1382df84aa86f559e537664bb30689605177ce37dc5067748acf9afd66a3269a6e323461356592fdfc624c86523bf105ff8fe47d3770'
@@ -73,6 +73,9 @@ prepare() {
     git submodule init
     git config submodule.unlock.url "$srcdir/vgpu_unlock"
     git -c protocol.file.allow=always submodule update
+
+    # add 2070 to supported gpus
+    sed -i '717i \ \ \ \ vcfgclone ${TARGET}/vgpuConfig.xml 0x1E30 0x12BA 0x1F02 0x0000\t# RTX 2070' patch.sh
 
     ./patch.sh --remap-p2v general-merge
     cd "${_mergeddriver}"
